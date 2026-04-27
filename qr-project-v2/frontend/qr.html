@@ -1,0 +1,14 @@
+<h2>Leitor QR</h2>
+<div id="reader"></div>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script>
+function onScanSuccess(decodedText){
+ alert(decodedText);
+ if(decodedText.startsWith("http")){
+   window.open(decodedText);
+ }
+}
+new Html5QrcodeScanner("reader",{fps:10,qrbox:250})
+.render(onScanSuccess);
+</script>

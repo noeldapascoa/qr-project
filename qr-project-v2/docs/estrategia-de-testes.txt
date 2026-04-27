@@ -1,0 +1,27 @@
+Documento de Estratégia de Testes
+
+Projeto:
+Sistema de Login com Leitor de QR Code usando HTML, JavaScript, Node.js, Docker e PostgreSQL.
+
+1. Funcionalidade: Cadastro de Usuário
+Regras:
+- Nome e senha obrigatórios
+- Não permitir duplicados
+Casos:
+CT01 (Integração): Criar conta válida -> sucesso
+CT02 (Integração): Usuário existente -> erro
+
+2. Funcionalidade: Login
+Regras:
+- Validar no banco
+Casos:
+CT03 (E2E): Login válido -> vai para qr.html
+CT04 (Integração): Login inválido -> erro
+
+3. Funcionalidade: QR Code
+Regras:
+- Ler QR
+- Abrir link se for URL
+Casos:
+CT05 (E2E): QR com URL -> abre navegador
+CT06 (Unitário): QR texto -> só exibe
