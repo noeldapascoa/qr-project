@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS usuarios (
   id SERIAL PRIMARY KEY,
-  nome VARCHAR(100),
+  nome VARCHAR(100) UNIQUE,
   senha VARCHAR(100)
 );

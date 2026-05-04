@@ -1,19 +1,30 @@
 services:
   db:
     image: postgres:15
+    container_name: qr-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: qrdb
     volumes:
+      - pgdata:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   backend:
     build: ./backend
+    container_name: qr-backend
     ports:
       - "3000:3000"
+    depends_on:
+      - db
 
   frontend:
     build: ./frontend
+    container_name: qr-frontend
     ports:
       - "5000:5000"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
