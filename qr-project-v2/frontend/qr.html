@@ -1,14 +1,37 @@
-<h2>Leitor QR</h2>
-<div id="reader"></div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leitor QR Code</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="qr-page">
+    <section class="qr-card">
+      <h1>Leitor QR Code</h1>
+      <p>Aponte a câmera ou envie uma imagem com QR Code.</p>
 
-<script src="https://unpkg.com/html5-qrcode"></script>
-<script>
-function onScanSuccess(decodedText){
- alert(decodedText);
- if(decodedText.startsWith("http")){
-   window.open(decodedText);
- }
-}
-new Html5QrcodeScanner("reader",{fps:10,qrbox:250})
-.render(onScanSuccess);
-</script>
+      <div id="reader"></div>
+
+      <button class="back-btn" onclick="window.location.href='index.html'">Sair</button>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script>
+    function onScanSuccess(decodedText) {
+      alert("QR Code lido: " + decodedText);
+
+      if (decodedText.startsWith("http://") || decodedText.startsWith("https://")) {
+        window.open(decodedText, "_blank");
+      }
+    }
+
+    new Html5QrcodeScanner("reader", {
+      fps: 10,
+      qrbox: 250
+    }).render(onScanSuccess);
+  </script>
+</body>
+</html>

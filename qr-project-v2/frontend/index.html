@@ -1,7 +1,42 @@
-<h2>Login</h2>
-<input id="nome" placeholder="Nome">
-<input id="senha" type="password" placeholder="Senha">
-<button onclick="login()">Entrar</button>
-<button onclick="criarConta()">Criar conta</button>
-<p id="mensagem"></p>
-<script src="script.js"></script>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acesso ao Leitor de QR Code</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="login-page">
+    <div class="bg-lines"></div>
+
+    <h1 class="title">ACESSO AO LEITOR DE QR CODE</h1>
+
+    <section class="login-card">
+      <h2>Conecte-se</h2>
+
+      <button class="social-btn google" type="button">
+        <span>G</span>
+        Continuar com Google
+      </button>
+
+      <button class="social-btn facebook" type="button">
+        <span>f</span>
+        Continuar com Facebook
+      </button>
+
+      <div class="divider"></div>
+
+      <input id="nome" type="text" placeholder="E-mail ou nome de usuário">
+      <input id="senha" type="password" placeholder="Senha">
+
+      <button class="enter-btn" onclick="login()">Entrar</button>
+      <button class="create-btn" onclick="criarConta()">Criar conta</button>
+
+      <p id="mensagem"></p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

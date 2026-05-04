@@ -6,39 +6,61 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.get('/', (req, res) => {
+  res.send('Backend funcionando');
+});
+
 app.post('/register', async (req, res) => {
   const { nome, senha } = req.body;
 
-  const existe = await pool.query(
-    'SELECT * FROM usuarios WHERE nome=$1',
-    [nome]
-  );
-
-  if (existe.rows.length > 0) {
-    return res.json({ success: false, message: 'Usuário já existe' });
+  if (!nome || !senha) {
+    return res.json({ success: false, message: 'Preencha nome e senha.' });
   }
 
-  await pool.query(
-    'INSERT INTO usuarios (nome, senha) VALUES ($1, $2)',
-    [nome, senha]
-  );
+  try {
+    const existe = await pool.query(
+      'SELECT * FROM usuarios WHERE nome=$1',
+      [nome]
+    );
 
-  res.json({ success: true, message: 'Conta criada' });
+    if (existe.rows.length > 0) {
+      return res.json({ success: false, message: 'Usuário já existe.' });
+    }
+
+    await pool.query(
+      'INSERT INTO usuarios (nome, senha) VALUES ($1, $2)',
+      [nome, senha]
+    );
+
+    res.json({ success: true, message: 'Conta criada com sucesso!' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Erro ao criar conta.' });
+  }
 });
 
 app.post('/login', async (req, res) => {
   const { nome, senha } = req.body;
 
-  const result = await pool.query(
-    'SELECT * FROM usuarios WHERE nome=$1 AND senha=$2',
-    [nome, senha]
-  );
+  if (!nome || !senha) {
+    return res.json({ success: false, message: 'Preencha nome e senha.' });
+  }
 
-  if (result.rows.length > 0) {
-    res.json({ success: true });
-  } else {
-    res.json({ success: false, message: 'Login inválido' });
+  try {
+    const result = await pool.query(
+      'SELECT * FROM usuarios WHERE nome=$1 AND senha=$2',
+      [nome, senha]
+    );
+
+    if (result.rows.length > 0) {
+      res.json({ success: true, message: 'Login realizado com sucesso!' });
+    } else {
+      res.json({ success: false, message: 'Login inválido.' });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Erro no login.' });
   }
 });
 
-app.listen(3000, () => console.log('Backend rodando'));
+app.listen(3000, () => {
+  console.log('Backend rodando na porta 3000');
+});
